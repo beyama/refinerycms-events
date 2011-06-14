@@ -1,0 +1,36 @@
+en:
+  plugins:
+    events:
+      title: Events
+  admin:
+    events:
+      actions:
+        create_new: Add New Event
+      records:
+        title: Events
+        sorry_no_results: Sorry! There are no results found.
+        no_items_yet: There are no Events yet. Click "Add New Event" to add your first event.
+      event:
+        edit: Edit this event
+        delete: Remove this event forever
+      form:
+        location: Event Location
+        dates: Event Times & Dates
+        different_location: Event Location
+        different_location_add: Add different location
+        different_location_remove: Remove different location
+        add_event: Add new event date
+        remove_event: Remove event date
+  events:
+    map_link: Google Maps
+    ics_link: vCalendar
+    ics_feed: vCalendar Feed
+    filter:
+      start_at: Start
+      end_at: End
+      search: Search
+      city: City
+      submit: Search
+    show:
+      upcoming: Upcoming events
+      other_times_and_dates: Other Times & Dates

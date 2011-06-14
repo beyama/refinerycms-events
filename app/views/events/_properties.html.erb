@@ -1,0 +1,41 @@
+<% 
+  loc = event.location
+  location_string = [loc.zip_and_city, loc.country, loc.state].reject(&:blank?).join(', ')   
+%>
+
+<ul class="properties">
+  <% [:start_at, :end_at].each do |attr| %>
+    <li class="event_<%= attr %>">
+      <span class="property <%= attr %>"> <%= Event.human_attribute_name(attr) %></span>
+      <span class="value"><%= l(event[attr], :format => :long)%></span>
+    </li>
+  <% end %>
+  
+  <li class="event_venue">
+    <span class="property venue"> <%= EventLocation.human_attribute_name(:venue) %></span>
+    <span class="value"><%= loc.venue %></span>
+  </li>
+  
+  <li class="event_address">
+    <span class="property address">
+      <%= EventLocation.human_attribute_name(:address) %>
+    </span>
+    <span class="value">
+      <% unless loc.address.blank? %>
+        <%= loc.address %>
+        <% unless location_string.blank? %>
+          <br />
+        <% end %>
+      <% end %>
+      <%= location_string %>
+    </span>
+  </li>
+  
+  <li class='event_links'>
+    <%= link_to t('events.ics_link'), event_url(event, :format => :ics), :class => 'ics'%>
+           
+    <% if loc.geocode? && loc.show_map_link %>
+      <%= map_link(t('events.map_link'), loc) %>
+    <% end %>
+  </li>
+</ul>

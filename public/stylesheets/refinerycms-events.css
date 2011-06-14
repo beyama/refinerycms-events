@@ -1,0 +1,81 @@
+dl.event {
+  float: left;
+  width: 100%;
+  margin: 10px 0 0 0;
+}
+
+dl.event dt a {
+  font-weight: bold;
+  font-size: 140%;
+  text-decoration: none;
+  line-height: 1.6em;
+}
+
+dl.event dd {
+  margin: 0;
+}
+
+dl.event dd.event_summary {
+  float: left;
+  width: 59%;
+}
+
+dl.event dd.event_properties {
+  float: right;
+  width: 40%;
+  border-left: 1px solid black;
+}
+
+dl.event ul.properties { list-style: none; }
+
+dl.event ul.properties li span.property,
+#event_infos ul.properties li span.property { 
+  float:left;
+  clear: both;
+  font-weight: bold;
+  width: 35%;
+}
+
+dl.event ul.properties li span.value,
+#event_infos ul.properties li span.value { 
+  float:right;
+  width: 64%;
+}
+
+#event_infos {
+  border-top: 1px solid #22A7F2;
+  border-bottom: 1px solid #22A7F2;
+  padding: 0 10px;
+  margin: 0 0 10px 0;
+}
+
+#event_infos ul.properties { 
+  float: left; 
+  width: 99.6%; 
+  list-style: none;
+  padding: 0;
+}
+#event_infos ul.properties li { width: 49%; }
+#event_infos ul.properties li.left { float: left; clear: both; }
+#event_infos ul.properties li.right { float: right; }
+
+#upcoming_events li { padding-bottom: .4em; }
+#upcoming_events li a { text-decoration: none; }
+#upcoming_events li a.date_link { font-style: italic; }
+
+#upcoming_events li a.event_link {
+  font-weight: bold;
+  font-size: larger;
+}
+
+a.map,
+a.ics {
+  font-weight: normal;
+  font-size: .6em;
+  text-decoration: none;
+  padding: 2px 4px;
+}
+a.map {
+  color: #fff;
+  background-color: #000;
+}

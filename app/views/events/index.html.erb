@@ -1,0 +1,35 @@
+<% content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>
+
+<% content_for :body_content_left do %>
+  <%= render 'filter' %>
+  <p>
+    <% title = t('events.ics_feed') %>
+    <%= link_to events_url(current_scopes.update(:format => :ics)), :class => 'ics_feed', :title => title do %>
+      <span><%= title %></span>
+    <% end %>
+  </p>
+
+  <div id="events">
+    <% last_date = nil %> 
+    <% @events.each do |event| %>
+      <% date = event.start_at.to_date %>
+      
+      <% if last_date.nil? || last_date != date %>
+        <% last_date = date %>
+        <h2 class="event_date"><%= l(date, :format => :short) %></h2>
+      <% end %>
+      
+      <% desc = event.description %>
+      <dl id="<%= dom_id(event) %>" class="event">
+        <dt class="event_name"><%= link_to desc.name, event_url(event) %></dt>
+        <dd class="event_summary"><%= desc.summary %></dd>
+        <dd class="event_properties">
+          <%= render :partial => 'properties', :locals => { :event => event } %>
+        </dd>
+      </dl>
+    <% end %>
+  </div>
+  
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

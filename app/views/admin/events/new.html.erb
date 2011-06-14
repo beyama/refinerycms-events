@@ -1,0 +1,8 @@
+<% 
+  content_for :stylesheets, stylesheet_link_tag('refinery/refinerycms-events')
+  content_for :javascripts, javascript_include_tag('refinery/refinerycms-events') 
+%>
+
+<%= form_for @event, :as => :event, :url => admin_events_path, :html => {:id => 'eventform'}  do |f| -%>
+  <%= render "form", :f => f %>
+<% end %>

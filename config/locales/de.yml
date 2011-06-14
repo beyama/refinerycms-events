@@ -1,0 +1,61 @@
+de:
+  plugins:
+    events:
+      title: Events
+  admin:
+    events:
+      actions:
+        create_new: Neuen Event hinzufügen
+      records:
+        title: Events
+        sorry_no_results: Entschuldigung! Keine Events gefunden.
+        no_items_yet: Es sind noch keine Events angelegt. Klicke "Neuen Event hinzufügen" um deinen ersten Event anzulegen.
+      event:
+        edit: Diesen Event bearbeiten
+        delete: Diesen Event für immer löschen
+      form:
+        location: Event Ort
+        dates: Event Zeiten
+        different_location: Event Ort
+        different_location_add: Anderen Ort hinzufügen
+        different_location_remove: Anderen Ort entfernen
+        add_event: Neue Zeit hinzufügen
+        remove_event: Zeit entfernen
+  events:
+    map_link: Google Maps
+    ics_link: vCalendar
+    ics_feed: vCalendar Feed
+    filter:
+      start_at: Start
+      end_at: Ende
+      search: Suche
+      city: Stadt
+      submit: Suche
+    show:
+      upcoming: Nächste Events
+      other_times_and_dates: Andere Zeiten
+      
+  activerecord:
+    models:
+      event_description: Event Beschreibung
+      event_location: Event Ort
+    attributes:
+      event:
+        start_at: Beginn
+        end_at: Ende
+        cost: Kosten
+      event_description:
+        name: Name
+        summary: Kurzbeschreibung
+        description: Beschreibung
+        cost: Kosten
+      event_location:
+        venue: Ort
+        country: Land
+        state: Bundesland
+        city: Stadt
+        address: Adresse
+        zip: Postleitzahl
+        show_map_link: Kartenlink anzeigen
+        show_map: Karte anzeigen
+        phone: Telefon

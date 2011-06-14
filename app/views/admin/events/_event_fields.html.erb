@@ -1,0 +1,39 @@
+<% scope = 'admin.events.form' %>
+
+<div class="eventbox">
+  <fieldset>
+    <div class='field'>
+      <%= f.label :start_at -%>
+      <%= f.datetime_select :start_at -%>
+    </div>
+
+    <div class='field'>
+      <%= f.label :end_at -%>
+      <%= f.datetime_select :end_at -%>
+    </div>
+    
+    <div class='field'>
+      <%= f.label :cost -%>
+      <%= f.text_field :cost -%>
+    </div>
+
+    <% differ = event.location && event.location.persisted? && event.location != @event.location %>
+    
+    <%= f.fields_for :location, differ ? event.location : EventLocation.new do |lf|%>
+      <div class="different_location<%= differ ? '' : ' hidden' %>">
+        <h3><%= t('different_location', :scope => scope) %></h3>
+        
+        <%= lf.hidden_field :_destroy, :value => !differ %>
+        <%= render 'location_fields', :f => lf %>
+        
+        <a class="different_location_remove remove" href="#">
+          <%= t('different_location_remove', :scope => scope) %>
+        </a>
+      </div>
+      
+      <a class="different_location_add add<%= differ ? ' hidden' : '' %>" href="#">
+        <%= t('different_location_add', :scope => scope) %>
+      </a>
+    <% end %>
+  </fieldset>
+</div>

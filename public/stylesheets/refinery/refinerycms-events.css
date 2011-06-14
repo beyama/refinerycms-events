@@ -1,0 +1,51 @@
+h3.boxtitle {
+  font-weight: bold;
+  margin: 20px 0 5px 0;
+  font-size: 13px;
+}
+
+.eventbox,
+.locationbox {
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border: 1px solid #CCCCCC;
+  padding: 4px;
+  background: none repeat scroll 0 0 #F2F2F2;
+}
+
+.eventbox fieldset,
+.locationbox fieldset {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #CCCCCC;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+
+.eventbox label:first-child,
+.locationbox label:first-child { margin-top: 0; }
+
+.eventbox { margin-bottom: 1.0em; }
+.eventbox a.add,
+.eventbox a.remove { margin-top: .6em; float: left; }
+.eventbox h3 { border-bottom: 1px solid #CCCCCC; }
+
+a.add, a.remove {
+  padding-left: 20px;
+  border: none !important;
+  text-decoration: none;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+a.add { background-image: url(../../images/refinery/icons/add.png) }
+a.remove { background-image: url(../../images/refinery/icons/delete.png) }
+
+
+.form-actions {
+  clear: both;
+  margin-top: 2.6em !important; 
+}
+
+.hidden { display: none; }

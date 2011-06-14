@@ -1,0 +1,10 @@
+<div id="other_dates" class="other_dates">
+  <h3><%= t('events.show.other_times_and_dates') %></h3>
+  <ul>
+    <% @other_dates.each do |event| %>
+      <li>
+        <%= link_to l(event.start_at, :format => :long), admin_event_path(event) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

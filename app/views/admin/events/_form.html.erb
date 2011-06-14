@@ -1,0 +1,50 @@
+<%= render :partial => "/shared/admin/error_messages", :locals => {
+  :object => @event,
+  :include_object_name => true
+  } %>
+
+<div class='field'>
+  <%= f.label :name -%>
+  <%= f.text_field :name, :class => 'widest' -%>
+</div>
+
+<div class='field'>
+  <%= f.label :summary -%>
+  <%= f.text_area :summary, :rows => 4, :class => 'widest' -%>
+</div>
+
+<div class='field'>
+  <%= f.label :description -%>
+  <%= f.text_area :description, :rows => 20, :class => 'wymeditor widest' -%>
+</div>
+
+<div class='field'>
+  <%= f.label :cost -%>
+  <%= f.text_field :cost -%>
+</div>
+
+<h3 class="boxtitle"><%= t('.location') -%></h3>
+<div class="locationbox">
+  <fieldset>
+    <%= f.fields_for :location do |lf| %>
+      <%= render 'location_fields', :f => lf -%>
+    <% end %>
+  </fieldset>
+</div>
+
+<h3 class="boxtitle"><%= t('.dates') %></h3>
+<% @event.events.each do |ev| %>
+  <%= f.fields_for :events, ev do |evf| %>
+    <%= render 'event_fields', :f => evf, :event => ev -%>
+  <% end %>
+<% end %>
+
+<%= link_to_add_event(f) -%>
+
+<%= render :partial => "/shared/admin/form_actions",
+  :locals => {
+  :f => f,
+  :continue_editing => false,
+  :delete_title => t('delete', :scope => 'admin.events.event'),
+  :delete_confirmation => t('message', :scope => 'shared.admin.delete')
+  } -%>

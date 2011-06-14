@@ -1,0 +1,71 @@
+<% content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>
+
+<%
+  desc = @event.description
+  loc  = @event.location
+  location_string = [loc.zip_and_city, loc.country, loc.state].reject(&:blank?).join(', ')   
+%>
+
+<% content_for :body_content_title do %>
+  <%= @event.title %>
+<% end %>
+
+<% content_for :body_content_left do %>
+  <section id="event_infos" class="event_infos">
+    
+    <ul class="properties">
+      <li class="event_start_at left">
+        <span class="property start_at"> <%= Event.human_attribute_name(:start_at) %></span>
+        <span class="value"><%= l(@event.start_at, :format => :long)%></span>
+      </li>
+      
+      <li class="event_venue right">
+        <span class="property venue"><%= EventLocation.human_attribute_name(:venue) %></span>
+        <span class="value"><%= loc.venue %></span>
+      </li>
+      
+      <li class="event_end_at left">
+        <span class="property end_at"> <%= Event.human_attribute_name(:end_at) %></span>
+        <span class="value"><%= l(@event.end_at, :format => :long)%></span>
+      </li>
+      
+      <li class="event_address right">
+        <span class="property address">
+          <%= EventLocation.human_attribute_name(:address) %>
+        </span>
+        <span class="value">
+          <% unless loc.address.blank? %>
+            <%= loc.address %>
+            <% unless location_string.blank? %>
+              <br />
+            <% end %>
+          <% end %>
+          <%= location_string %>
+        </span>
+      </li>
+      
+      <li class='event_links left'>
+        <%= link_to t('events.ics_link'), event_url(@event, :format => :ics), :class => 'ics'%>
+               
+        <% if loc.geocode? && loc.show_map_link %>
+          <%= map_link(t('events.map_link'), loc) %>
+        <% end %>
+      </li>
+    </ul>
+  </section>
+  
+  <section id="event_description">
+    <%=raw desc.description %>
+  
+    <%= render 'other_dates' unless @other_dates.count.zero? %>
+  </section>
+
+<% end %>
+
+<% content_for :body_content_right do %>
+  <aside>
+    <%= render 'upcoming' %>
+  </aside>
+<% end unless @upcoming.empty? %>
+
+<%= render :partial => "/shared/content_page" %>
