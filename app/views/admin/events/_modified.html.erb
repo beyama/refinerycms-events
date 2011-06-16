@@ -1,0 +1,9 @@
+<div class="modified">
+  <p class="created">
+    <%= t('.created', :by => object.created_by.username, :at => l(object.created_at, :format => :long)) %>
+  </p>
+  <p class="updated">
+    <%= t('.updated', :by => object.updated_by.username, :at => l(object.updated_at, :format => :long)) %>
+  </p>
+  <div class="clearfix">&nbsp;</div>
+</div>

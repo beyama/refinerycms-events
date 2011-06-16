@@ -4,12 +4,12 @@
   <fieldset>
     <div class='field'>
       <%= f.label :start_at -%>
-      <%= f.datetime_select :start_at -%>
+      <%= f.datetime_select :start_at, :default => Date.today.to_time -%>
     </div>
 
     <div class='field'>
       <%= f.label :end_at -%>
-      <%= f.datetime_select :end_at -%>
+      <%= f.datetime_select :end_at, :default => Date.today.to_time -%>
     </div>
     
     <div class='field'>

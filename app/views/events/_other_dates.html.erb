@@ -3,7 +3,14 @@
   <ul>
     <% @other_dates.each do |event| %>
       <li>
-        <%= link_to l(event.start_at, :format => :long), admin_event_path(event) %>
+        <% loc = event.location %>
+        <%= link_to l(event.start_at, :format => :long), event_path(event) %>
+        <% if loc != @event.location %>
+          <%= loc.venue %>
+          <% if loc.city.present? %>
+            , <%= loc.city %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

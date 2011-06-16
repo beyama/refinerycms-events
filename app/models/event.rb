@@ -1,6 +1,14 @@
 require 'ri_cal'
 
 class Event < ActiveRecord::Base
+  
+  if defined? ActsAsTaggableOn
+    acts_as_taggable_on :categories
+  else
+    def self.taggable?
+      false
+    end
+  end
 
   belongs_to :location, :class_name => 'EventLocation'
   belongs_to :description, :class_name => 'EventDescription', :counter_cache => true

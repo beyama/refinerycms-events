@@ -1,12 +1,19 @@
 <h2><%= t('events.show.upcoming') %></h2>
 <ul id="upcoming_events">
   <% @upcoming.each do |event| %>
+    <% loc = event.location %>
     <li>
       <%= link_to l(event.start_at, :format => :short),
         events_url(:start_at => event.start_at.to_date),
         :class => 'date_link' %>
       <br />
       <%= link_to event.title, event_url(event), :class => 'event_link' %>
+      <br />
+      <%= loc.venue %>
+      <% if loc.city.present? %>
+      <br />
+      <%= loc.city %>
+      <% end %>
     </li>
   <% end %>
 </ul>

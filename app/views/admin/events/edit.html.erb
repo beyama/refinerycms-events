@@ -3,6 +3,8 @@
   content_for :javascripts, javascript_include_tag('refinery/refinerycms-events') 
 %>
 
+<%= render 'modified', :object => @event %>
+
 <%= form_for @event, :as => :event, :url => admin_event_path(@event), :html => {:id => 'eventform'}  do |f| -%>
   <%= render "form", :f => f %>
 <% end %>

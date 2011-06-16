@@ -31,7 +31,55 @@ $(function() {
       box.addClass('hidden').find('input[type=hidden]').val(true);
       add.toggle();
       return false;
+    }); 
+  }
+  
+  if($('#categories_form').size()) {
+    var list = $('#categories_list')
+        input = $('#new_category'),
+        empty = list.find('li.empty'),
+        addCategory = $('#add_category'),
+        template = eval( addCategory.attr('template') );
+        
+    $('li a', list).live('click', function() {
+      $(this).parent().remove();
+      if(list.find('li').size() == 1)
+        empty.show();
+      return false;
     });
     
-  }
+    addCategory.click(function() {
+      var $this = $(this),
+          lis = $('li', list),
+          val = input.val().trim();
+      
+      if(val.length == 0)
+        return false;
+        
+      input.val('');
+      
+      var html = template.replace(/new_category/g, val),
+          val  = val.toLowerCase();
+      
+      for(var i=0; i < lis.size(); i++) {
+        var li = $(lis[i]),
+            li_val = li.find('input').val();
+        console.log(li_val)
+        
+        if(li_val) {
+          li_val = li_val.toLowerCase();
+          if(li_val > val) {          
+            li.before(html);
+            return false;
+          } else if(li_val == val) {
+            return false;
+          }
+        }
+      }
+      list.append(html);
+      empty.hide();
+      
+      return false;
+    });
+  } 
 });

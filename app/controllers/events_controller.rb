@@ -10,12 +10,17 @@ class EventsController < ApplicationController
   has_scope :country
   has_scope :state
   has_scope :zip
+  
+  has_scope :category do |controller, scope, value|
+    scope.tagged_with(value.split(',').map(&:strip), :on => :categories)
+  end if Event.taggable?
 
   def index
     find_all_events
     
     respond_with do |format|
       format.html do
+        @events = @events.paginate(:page => params[:page], :per_page => 10)
         find_page
         present(@page)
       end

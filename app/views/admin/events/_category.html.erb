@@ -1,0 +1,5 @@
+<li>
+  <%= category -%>
+  <%= hidden_field_tag('categories[]', category, :id => nil) -%>
+  <a class='remove' href='#'><span><%= t('admin.events.categories.remove_category') %></span></a>
+</li>

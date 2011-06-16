@@ -8,6 +8,22 @@
   <%= f.text_field :name, :class => 'widest' -%>
 </div>
 
+<% if EventDescription.taggable? && Refinery::Events.categories.any? %>
+  <h3 class="boxtitle"><%= t('.categories')%></h3>
+  <div class="field categories">
+    <ul>
+      <% Refinery::Events.categories.each do |category| %>
+        <li>
+          <% id = "category_#{category.object_id}" %>
+          <%= check_box_tag 'event[category_list][]', category, @event.category_list.include?(category), :id => id %>
+          <%= label_tag id, category %>
+        </li>
+      <% end %>
+    </ul>
+    <div class='clearfix'></div>
+  </div>
+<% end %>
+
 <div class='field'>
   <%= f.label :summary -%>
   <%= f.text_area :summary, :rows => 4, :class => 'widest' -%>

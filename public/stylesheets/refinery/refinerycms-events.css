@@ -42,6 +42,30 @@ a.add, a.remove {
 a.add { background-image: url(../../images/refinery/icons/add.png) }
 a.remove { background-image: url(../../images/refinery/icons/delete.png) }
 
+#eventform .categories label { display: inline; }
+
+#eventform .categories ul {
+  float: left;
+  width: 100%;
+  list-style: none;
+  margin: 0; 
+  padding: 0;
+}
+#eventform .categories ul li {
+  float: left;
+  margin: 4px 6px 4px 0;
+}
+
+#categories_list { margin-bottom: 1.6em; }
+#categories_list li a { display: none; margin-left: .6em; }
+#categories_list li:hover a { display: inline; margin-left: .6em; }
+#categories_list li a span { display: none; }
+
+.modified { }
+.modified p { padding: 0; margin: 0; font-style: italic; color: #41403C; }
+.modified p.created,
+.modified p.updated { float: left; }
+.modified p.updated { margin-left: 2em; }
 
 .form-actions {
   clear: both;

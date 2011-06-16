@@ -37,6 +37,16 @@ module Admin
         render :action => :edit
       end
     end
+    
+    def categories
+      if request.get?
+        @categories = Refinery::Events.categories
+      else
+        Refinery::Events.categories = params[:categories] ? 
+          params[:categories].map(&:strip).reject(&:blank?).uniq.sort{|a,b| a.downcase <=> b.downcase } : []
+        redirect_to admin_events_url, :notice => t('admin.events.categories.categories_saved')
+      end
+    end
 
     protected
     def find_event

@@ -1,0 +1,26 @@
+<% 
+  content_for :stylesheets, stylesheet_link_tag('refinery/refinerycms-events')
+  content_for :javascripts, javascript_include_tag('refinery/refinerycms-events') 
+%>
+
+<h1><%= t('.edit_categories') %></h1>
+
+<%= form_tag categories_admin_events_url, :method => :post, :id => 'categories_form' do %>
+  <ul id="categories_list">
+    <li class='empty<%= @categories.empty? ? '' : ' hidden' %>'><%= t('.no_categories') %></li>
+    <%= render :partial => 'category', :collection => @categories %>
+  </ul>
+  <%= text_field_tag :new_category %>
+  <%= submit_tag t('.add_category'), :id => 'add_category', :name => 'add_category',
+    :template => "'#{escape_javascript(render 'category', :category => 'new_category')}'" %>
+
+  <div class="form-actions" style="border-radius: 5px 5px 5px 5px;">
+    <div class="form-actions-left">
+      <%= submit_tag t('shared.admin.form_actions.save') %>
+      <%= link_to t('shared.admin.form_actions.cancel'), admin_events_path, :id => 'cancel_button', :class => 'close_dialog button' %>
+    </div>
+    <div class="form-actions-right">
+    </div>
+  </div>
+  
+<% end %>

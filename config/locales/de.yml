@@ -6,6 +6,7 @@ de:
     events:
       actions:
         create_new: Neuen Event hinzufügen
+        edit_categories: Kategorien bearbeiten
       records:
         title: Events
         sorry_no_results: Entschuldigung! Keine Events gefunden.
@@ -21,14 +22,25 @@ de:
         different_location_remove: Anderen Ort entfernen
         add_event: Neue Zeit hinzufügen
         remove_event: Zeit entfernen
+        categories: Kategorien
+      categories:
+        edit_categories: Kategorien bearbeiten
+        no_categories: Keine Kategorien gefunden.
+        remove_category: Kategorie entfernen
+        add_category: Kategorie hinzufügen
+        categories_saved: Kategorien erfolgreich gespeichert.
+      modified:
+        created: Erstelt von %{by} am %{at}
+        updated: Geändet von %{by} am %{at}
   events:
     map_link: Google Maps
     ics_link: vCalendar
     ics_feed: vCalendar Feed
     filter:
+      category: Kategorie
       start_at: Start
       end_at: Ende
-      search: Suche
+      search: Stichwort
       city: Stadt
       submit: Suche
     show:

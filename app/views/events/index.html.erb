@@ -1,4 +1,4 @@
-<% content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>
+<% render 'header' %>
 
 <% content_for :body_content_left do %>
   <%= render 'filter' %>
@@ -28,6 +28,7 @@
         </dd>
       </dl>
     <% end %>
+    <%= will_paginate @events %>
   </div>
   
 <% end %>

@@ -6,6 +6,7 @@ en:
     events:
       actions:
         create_new: Add New Event
+        edit_categories: Edit categories
       records:
         title: Events
         sorry_no_results: Sorry! There are no results found.
@@ -21,14 +22,25 @@ en:
         different_location_remove: Remove different location
         add_event: Add new event date
         remove_event: Remove event date
+        categories: Categories
+      categories:
+        edit_categories: Edit categories
+        no_categories: No categories found.
+        remove_category: Remove category
+        add_category: Add category
+        categories_saved: Categories saved.
+      modified:
+        created: Created by %{by} at %{at}
+        updated: Updated by %{by} at %{at}
   events:
     map_link: Google Maps
     ics_link: vCalendar
     ics_feed: vCalendar Feed
     filter:
+      category: Category
       start_at: Start
       end_at: End
-      search: Search
+      search: Text
       city: City
       submit: Search
     show:

@@ -1,4 +1,4 @@
-<% content_for :stylesheets, stylesheet_link_tag('refinerycms-events') %>
+<% render 'header' %>
 
 <%
   desc = @event.description
@@ -51,8 +51,21 @@
           <%= map_link(t('events.map_link'), loc) %>
         <% end %>
       </li>
+      
+      <% unless loc.phone.blank? %>
+        <li class="event_phone right">
+          <span class="property phone"><%= EventLocation.human_attribute_name(:phone) %></span>
+          <span class="value"><%= loc.phone %></span>
+        </li>
+      <% end %>
     </ul>
   </section>
+  
+  <% if loc.show_map && loc.geocode? %>
+    <%= content_tag 'div', '', 
+      :id => 'event_map_canvas', :class => 'event_map_canvas', 
+      :lat => loc.lat, :lng => loc.lng, :map_title => desc.name %>
+  <% end %>
   
   <section id="event_description">
     <%=raw desc.description %>
