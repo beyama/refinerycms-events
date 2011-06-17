@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     
     respond_with do |format|
       format.html do
-        @events = @events.paginate(:page => params[:page], :per_page => 10)
+        @events = @events.paginate(:page => params[:page], :per_page => 20)
         find_page
         present(@page)
       end

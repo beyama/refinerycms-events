@@ -28,8 +28,16 @@ h3.boxtitle {
 .locationbox label:first-child { margin-top: 0; }
 
 .eventbox { margin-bottom: 1.0em; }
-.eventbox a.add,
-.eventbox a.remove { margin-top: .6em; float: left; }
+.eventbox fieldset { position: relative; }
+.eventbox a.add { margin-top: .6em; float: left; }
+.eventbox a.remove {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: -8px;
+  top: -8px;
+}
+.eventbox a.remove span { display: none; }
 .eventbox h3 { border-bottom: 1px solid #CCCCCC; }
 
 a.add, a.remove {

@@ -4,7 +4,8 @@ module Admin
     before_filter :find_event, :only => [:edit, :update, :destroy]
 
     def index
-      @events = EventDescription.includes(:events).order('events.start_at ASC')
+      @events = EventDescription.includes(:events).order('events.start_at DESC')
+      @events = @events.where("name like ?", "%#{params[:search]}%") if params[:search].present?
       @events = @events.paginate(:page => params[:page], :per_page => 20)
       render :partial => 'events' if request.xhr?
     end

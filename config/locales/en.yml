@@ -46,3 +46,11 @@ en:
     show:
       upcoming: Upcoming events
       other_times_and_dates: Other Times & Dates
+      
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            base:
+              start_at_cant_be_after_end_at: The start time can´t be after the end time.

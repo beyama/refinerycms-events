@@ -35,6 +35,13 @@ class EventDescription < ActiveRecord::Base
     end
   end
   
+  before_save do |desc|
+    desc.events.each do |event|
+      event.created_by = desc.created_by if event.new_record?
+      event.updated_by = desc.updated_by if event.changed?
+    end
+  end
+  
   after_save do |desc|
     if self.class.taggable? 
       desc.events.each do |event|

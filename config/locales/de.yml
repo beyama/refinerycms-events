@@ -38,8 +38,8 @@ de:
     ics_feed: vCalendar Feed
     filter:
       category: Kategorie
-      start_at: Start
-      end_at: Ende
+      start_at: Von
+      end_at: Bis
       search: Stichwort
       city: Stadt
       submit: Suche
@@ -48,6 +48,12 @@ de:
       other_times_and_dates: Andere Zeiten
       
   activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            base:
+              start_at_cant_be_after_end_at: Der Beginn kann nicht nach dem Ende liegen.
     models:
       event_description: Event Beschreibung
       event_location: Event Ort

@@ -2,6 +2,8 @@ class EventLocation < ActiveRecord::Base
   
   before_save :geocode_address
   
+  validates :venue, :presence => true
+  
   def geocode?
     lat.present? && lng.present?
   end

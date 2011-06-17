@@ -5,7 +5,7 @@
   <% end %>
 
   <%= label_tag :search, t('.search') %>
-  <%= search_field_tag :search, params[:search] %>
+  <%= search_field_tag :search, params[:search], :size => 14  %>
     
   <%= label_tag :start_at, t('.start_at')  %>
   <%= search_field_tag :start_at, params[:start_at], :size => 12, :locale => locale %>
@@ -14,7 +14,7 @@
   <%= search_field_tag :end_at, params[:end_at], :size => 12 %>
     
   <%= label_tag :city, t('.city') %>
-  <%= search_field_tag :city, params[:city] %>
+  <%= search_field_tag :city, params[:city], :size => 14  %>
   
   <%= submit_tag t('.submit'), :name => nil %>
 <% end %>

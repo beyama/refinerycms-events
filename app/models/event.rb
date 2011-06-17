@@ -20,7 +20,9 @@ class Event < ActiveRecord::Base
   validates :location, :start_at, :end_at, :presence => true
   
   validate do |event|
-    errors.add(:base, I18n.t('.start_at_cant_be_after_end_at')) if event.start_at && event.end_at && event.start_at > event.end_at
+    if event.start_at && event.end_at && event.start_at > event.end_at
+      event.errors.add(:base, :start_at_cant_be_after_end_at)
+    end
   end
   
   scope :start_at, lambda {|date| 
