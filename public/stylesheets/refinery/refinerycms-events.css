@@ -24,8 +24,23 @@ h3.boxtitle {
   -webkit-border-radius: 2px;
 }
 
-.eventbox label:first-child,
-.locationbox label:first-child { margin-top: 0; }
+.eventbox .field:first-child label,
+.locationbox .field:first-child label { margin-top: 0; }
+
+.field.inline {
+  float: left;
+  width: 99%;
+  clear: left;
+}
+.field.inline label { 
+  float: left;
+  width: 30%;
+}
+.field.inline input { 
+  float: left;
+  width: 67%;
+  margin-top: 20px;
+}
 
 .eventbox { margin-bottom: 1.0em; }
 .eventbox fieldset { position: relative; }
