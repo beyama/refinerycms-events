@@ -15,7 +15,7 @@
       <% Refinery::Events.categories.each do |category| %>
         <li>
           <% id = "category_#{category.object_id}" %>
-          <%= check_box_tag 'event[category_list][]', category, @event.category_list.include?(category), :id => id %>
+          <%= check_box_tag 'event[category_list][]', category.downcase, @event.category_list.include?(category.downcase), :id => id %>
           <%= label_tag id, category %>
         </li>
       <% end %>

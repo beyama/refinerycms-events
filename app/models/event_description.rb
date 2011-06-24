@@ -23,15 +23,18 @@ class EventDescription < ActiveRecord::Base
   accepts_nested_attributes_for :location, :reject_if => :all_blank
   accepts_nested_attributes_for :events, :allow_destroy => true
   
-  before_validation do |desc|
+  before_validation do |desc|    
     if self.class.taggable?
-      categories = Refinery::Events.categories
+      categories = Refinery::Events.categories.map(&:downcase)
       self.category_list = self.category_list.select{|category| categories.include?(category)}
+      
+      desc.events.each do |event|
+        event.category_list = desc.category_list if event.changed?
+      end
     end
     
     desc.events.each do |event|
       event.location ||= desc.location
-      event.category_list = desc.category_list if self.class.taggable?
     end
   end
   
