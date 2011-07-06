@@ -67,6 +67,8 @@ dl.event ul.properties li.event_links { clear: both; }
   font-size: larger;
 }
 
+#other_dates { clear: both; }
+
 a.map,
 a.ics {
   font-weight: normal;
