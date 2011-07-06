@@ -13,21 +13,21 @@ class AddEventCategories < ActiveRecord::Migration
     
     if defined?(ActsAsTaggableOn)
       event_categories = RefinerySetting.find_or_set(:event_categories, [])
-      break if event_categories.empty?
-      
-      EventDescription.all.each do |desc|
-        tags = ActsAsTaggableOn::Tag.joins(:taggings) \
-          .where("taggable_type = 'EventDescription' AND taggable_id = ?", desc.id)
-        desc.categories = tags.map do |tag|
-          name = event_categories.find{|c| c.downcase == tag.name }
-          if name
-            category = EventCategory.find_by_name(name)
-            category || EventCategory.create(:name => name)
-          end
-        end.compact
-        desc.save
+      unless event_categories.empty?
+        EventDescription.all.each do |desc|
+          tags = ActsAsTaggableOn::Tag.joins(:taggings) \
+            .where("taggable_type = 'EventDescription' AND taggable_id = ?", desc.id)
+          desc.categories = tags.map do |tag|
+            name = event_categories.find{|c| c.downcase == tag.name }
+            if name
+              category = EventCategory.find_by_name(name)
+              category || EventCategory.create(:name => name)
+            end
+          end.compact
+          desc.save
+        end
+        ActsAsTaggableOn::Tagging.delete_all("taggable_type = 'EventDescription' OR taggable_type = 'Event'")  
       end
-      ActsAsTaggableOn::Tagging.delete_all("taggable_type = 'EventDescription' OR taggable_type = 'Event'")
     end
     
   end

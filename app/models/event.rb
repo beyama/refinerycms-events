@@ -2,7 +2,7 @@ require 'ri_cal'
 
 class Event < ActiveRecord::Base
   belongs_to :location, :class_name => 'EventLocation'
-  belongs_to :description, :class_name => 'EventDescription', :counter_cache => true
+  belongs_to :description, :class_name => 'EventDescription'
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
   

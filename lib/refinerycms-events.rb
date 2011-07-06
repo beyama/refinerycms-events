@@ -1,7 +1,7 @@
 require 'refinerycms-base'
 
 require 'has_scope'
-require 'geokit-rails3'
+require 'geocoder'
 
 module Refinery
   module Events

@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   
   s.add_dependency    'has_scope',  '>= 0.5.0'
   s.add_dependency    'ri_cal', '>= 0.8.8'
-  s.add_dependency    'geokit-rails3', "~> 0.1.3"
+  s.add_dependency    'geocoder', '>= 1.0.2'
 end

@@ -1,4 +1,5 @@
 class EventLocation < ActiveRecord::Base
+  geocoded_by :full_address, :latitude => :lat, :longitude => :lng
   
   before_save :geocode_address
   
@@ -13,17 +14,13 @@ class EventLocation < ActiveRecord::Base
   end
   
   protected
+  def full_address
+    [address, city, zip, state].reject(&:blank?).join(', ')
+  end
+  
   def geocode_address
     return if address.blank? || (persisted? && !address_changed?)
-    
-    query = [address, city, zip, state].reject(&:blank?).join(', ')
-    geo = Geokit::Geocoders::MultiGeocoder.geocode(query)
-    if geo.success
-      self.lat = geo.lat
-      self.lng = geo.lng
-    else
-      errors.add(:address, I18n.t('.could_not_geocode_address'))
-    end
+    fetch_coordinates
   end
   
 end

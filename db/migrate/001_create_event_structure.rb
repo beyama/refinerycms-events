@@ -21,7 +21,6 @@ class CreateEventStructure < ActiveRecord::Migration
       t.text        :description
       t.references  :location
       t.integer     :cost
-      t.integer     :events_count, :default => 0
       t.references  :created_by
       t.references  :updated_by
       
