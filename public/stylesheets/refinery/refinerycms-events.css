@@ -95,4 +95,8 @@ a.remove { background-image: url(../../images/refinery/icons/delete.png) }
   margin-top: 2.6em !important; 
 }
 
+#actions a.categories_icon {
+  background-image: url(../../images/refinerycms_events/tag_red.png);
+}
+
 .hidden { display: none; }

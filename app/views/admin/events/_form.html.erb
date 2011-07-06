@@ -8,15 +8,15 @@
   <%= f.text_field :name, :class => 'widest' -%>
 </div>
 
-<% if EventDescription.taggable? && Refinery::Events.categories.any? %>
+<% unless EventCategory.count.zero? %>
   <h3 class="boxtitle"><%= t('.categories')%></h3>
   <div class="field categories">
     <ul>
-      <% Refinery::Events.categories.each do |category| %>
+      <% EventCategory.order('name ASC').all.each do |category| %>
         <li>
-          <% id = "category_#{category.object_id}" %>
-          <%= check_box_tag 'event[category_list][]', category.downcase, @event.category_list.include?(category.downcase), :id => id %>
-          <%= label_tag id, category %>
+          <% id = dom_id(category) %>
+          <%= check_box_tag 'categories[]', category.id, @event.categories.include?(category), :id => id %>
+          <%= label_tag id, category.name %>
         </li>
       <% end %>
     </ul>
@@ -60,7 +60,7 @@
 <%= render :partial => "/shared/admin/form_actions",
   :locals => {
   :f => f,
-  :continue_editing => false,
+  :continue_editing => true,
   :delete_title => t('delete', :scope => 'admin.events.event'),
   :delete_confirmation => t('message', :scope => 'shared.admin.delete')
   } -%>

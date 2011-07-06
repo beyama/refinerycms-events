@@ -10,10 +10,7 @@ class EventsController < ApplicationController
   has_scope :country
   has_scope :state
   has_scope :zip
-  
-  has_scope :category do |controller, scope, value|
-    scope.tagged_with(value.split(',').map(&:strip), :on => :categories)
-  end if Event.taggable?
+  has_scope :category
 
   def index
     find_all_events

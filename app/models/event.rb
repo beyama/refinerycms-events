@@ -1,15 +1,6 @@
 require 'ri_cal'
 
 class Event < ActiveRecord::Base
-  
-  if defined? ActsAsTaggableOn
-    acts_as_taggable_on :categories
-  else
-    def self.taggable?
-      false
-    end
-  end
-
   belongs_to :location, :class_name => 'EventLocation'
   belongs_to :description, :class_name => 'EventDescription', :counter_cache => true
   belongs_to :created_by, :class_name => 'User'
@@ -38,6 +29,10 @@ class Event < ActiveRecord::Base
   scope :search, lambda {|q|
     query = "event_descriptions.name like :q OR event_descriptions.summary like :q OR event_descriptions.description like :q"
     includes(:description).where(query, :q => "%#{q}%")
+  }
+  
+  scope :category, lambda {|q|
+    joins(:description => :categories).where('event_categories.name like ?', q)
   }
   
   class << self

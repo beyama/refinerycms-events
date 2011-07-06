@@ -58,7 +58,7 @@ $(function() {
         
       input.val('');
       
-      var html = template.replace(/new_category/g, val),
+      var html = template.replace(/new_event_category/g, val),
           val  = val.toLowerCase();
       
       for(var i=0; i < lis.size(); i++) {

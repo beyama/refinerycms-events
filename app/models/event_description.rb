@@ -1,16 +1,9 @@
 class EventDescription < ActiveRecord::Base
-  
-  if defined? ActsAsTaggableOn
-    acts_as_taggable_on :categories
-  else
-    def self.taggable?
-      false
-    end
-  end
-  
   belongs_to :location, :class_name => 'EventLocation'
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
+  
+  has_and_belongs_to_many :categories, :class_name => 'EventCategory', :join_table => 'event_categories_event_descriptions'
   
   has_many :events, :class_name => 'Event', :foreign_key => :description_id, :autosave => true do
     
@@ -24,15 +17,6 @@ class EventDescription < ActiveRecord::Base
   accepts_nested_attributes_for :events, :allow_destroy => true
   
   before_validation do |desc|    
-    if self.class.taggable?
-      categories = Refinery::Events.categories.map(&:downcase)
-      self.category_list = self.category_list.select{|category| categories.include?(category)}
-      
-      desc.events.each do |event|
-        event.category_list = desc.category_list if event.changed?
-      end
-    end
-    
     desc.events.each do |event|
       event.location ||= desc.location
     end
@@ -44,16 +28,4 @@ class EventDescription < ActiveRecord::Base
       event.updated_by = desc.updated_by if event.changed?
     end
   end
-  
-  after_save do |desc|
-    if self.class.taggable? 
-      desc.events.each do |event|
-        if event.category_list != desc.category_list
-          event.category_list = desc.category_list
-          event.save
-        end
-      end
-    end
-  end
-  
 end

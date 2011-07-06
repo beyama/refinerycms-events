@@ -1,10 +1,7 @@
 <%= form_tag events_path, :method => :get, :id => 'event_filter' do %>
-  <% if Event.taggable? && Refinery::Events.categories.any? %>
-    <%= label_tag :category, t('.category') %>
-    <%= select_tag :category, 
-      options_for_select(Refinery::Events.categories.map {|c| [c, c.downcase]}, params[:category]),
-      :include_blank => true %>
-  <% end %>
+  <%= label_tag :category, t('.category') %>
+  <%= select_tag :category, options_for_event_category_select,
+    :include_blank => true %>
 
   <%= label_tag :search, t('.search') %>
   <%= search_field_tag :search, params[:search], :size => 14  %>

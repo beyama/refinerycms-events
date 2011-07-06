@@ -20,31 +20,24 @@ module Admin
       @event = EventDescription.new(params[:event])
       @event.created_by = current_user
       @event.updated_by = current_user
-      
-      if @event.save
-        redirect_to admin_events_path, :notice => t('refinery.crudify.created', :what => "'#{@event.name}'")
-      else
-        render :action => :new
-      end
+      save
     end
     
     def update
       @event.attributes = params[:event]
       @event.updated_by = current_user
-      
-      if @event.save
-        redirect_to admin_events_path, :notice => t('refinery.crudify.updated', :what => "'#{@event.name}'")
-      else
-        render :action => :edit
-      end
+      save
     end
     
     def categories
       if request.get?
-        @categories = Refinery::Events.categories
+        @categories = EventCategory.order('name ASC').all
       else
-        Refinery::Events.categories = params[:categories] ? 
-          params[:categories].map(&:strip).reject(&:blank?).uniq.sort{|a,b| a.downcase <=> b.downcase } : []
+        @categories = EventCategory.where('name in (?)', params[:categories])
+        params[:categories].each do |name|
+          category = @categories.find{|c| c.name == name }
+          EventCategory.create :name => name unless category
+        end
         redirect_to admin_events_url, :notice => t('admin.events.categories.categories_saved')
       end
     end
@@ -52,6 +45,27 @@ module Admin
     protected
     def find_event
       @event = EventDescription.find(params[:id])
+    end
+    
+    def save
+      if params[:categories].present?
+        @event.categories = EventCategory.find(params[:categories])
+      end
+      
+      if @event.save
+        (request.xhr? ? flash.now : flash).notice = t('refinery.crudify.updated', :what => "'#{@event.name}'")
+        request.xhr? ? render(:partial => "/shared/message") : redirect_to(admin_events_path)
+      else
+        if request.xhr?
+          render :partial => "/shared/admin/error_messages",
+                   :locals => {
+                     :object => @event,
+                     :include_object_name => true
+                   }
+        else
+          render :action => (@event.persisted? ? :edit : :new)
+        end
+      end
     end
 
   end

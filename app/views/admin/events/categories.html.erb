@@ -12,7 +12,7 @@
   </ul>
   <%= text_field_tag :new_category %>
   <%= submit_tag t('.add_category'), :id => 'add_category', :name => 'add_category',
-    :template => "'#{escape_javascript(render 'category', :category => 'new_category')}'" %>
+    :template => "'#{escape_javascript(render 'category', :category => EventCategory.new(:name => 'new_event_category'))}'" %>
 
   <div class="form-actions" style="border-radius: 5px 5px 5px 5px;">
     <div class="form-actions-left">
