@@ -69,7 +69,7 @@
   
   <section id="event_description">
     <%=raw desc.description %>
-    <%=raw desc.summary if desc.description.empty? %>
+    <%=raw desc.summary if desc.description.blank? %>
   
     <%= render 'other_dates' unless @other_dates.count.zero? %>
   </section>

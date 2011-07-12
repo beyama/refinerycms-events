@@ -28,7 +28,16 @@ module Admin
       @event.updated_by = current_user
       save
     end
-    
+
+    def destroy
+      title = @event.name
+      if @event.destroy
+        flash.notice = t('destroyed', :scope => 'refinery.crudify', :what => "'#{title}'")
+      end
+
+      redirect_to admin_events_url
+    end    
+
     def categories
       if request.get?
         @categories = EventCategory.order('name ASC').all
@@ -52,8 +61,10 @@ module Admin
         @event.categories = EventCategory.find(params[:categories])
       end
       
+      message = @event.new_record? ? 'refinery.crudify.created' : 'refinery.crudify.updated'
+      
       if @event.save
-        (request.xhr? ? flash.now : flash).notice = t('refinery.crudify.updated', :what => "'#{@event.name}'")
+        (request.xhr? ? flash.now : flash).notice = t(message, :what => "'#{@event.name}'")
         request.xhr? ? render(:partial => "/shared/message") : redirect_to(admin_events_path)
       else
         if request.xhr?

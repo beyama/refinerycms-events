@@ -1,11 +1,11 @@
 class EventDescription < ActiveRecord::Base
-  belongs_to :location, :class_name => 'EventLocation'
+  belongs_to :location, :class_name => 'EventLocation', :dependent => :destroy
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
   
   has_and_belongs_to_many :categories, :class_name => 'EventCategory', :join_table => 'event_categories_event_descriptions'
   
-  has_many :events, :class_name => 'Event', :foreign_key => :description_id, :autosave => true do
+  has_many :events, :class_name => 'Event', :foreign_key => :description_id, :autosave => true, :dependent => :destroy do
     
     def unexpired
       self.start_at(Time.now)
@@ -13,6 +13,8 @@ class EventDescription < ActiveRecord::Base
 
   end
   
+  validates :name, :presence => true
+
   accepts_nested_attributes_for :location, :reject_if => :all_blank
   accepts_nested_attributes_for :events, :allow_destroy => true
   

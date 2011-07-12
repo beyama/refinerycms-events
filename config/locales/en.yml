@@ -5,7 +5,7 @@ en:
   admin:
     events:
       actions:
-        create_new: Add New Event
+        create_new: Add new event
         edit_categories: Edit categories
       records:
         title: Events

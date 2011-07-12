@@ -30,7 +30,7 @@ module Refinery
             :class => Event}
         end
         
-        Mime::Type.register "text/calendar", :ics
+        Mime::Type.register "text/calendar", :ics unless defined?(Mime::ICS)
       end
     end
   end
