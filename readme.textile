@@ -1,0 +1,54 @@
+h1. Refinery CMS Events
+
+Events is an event calendar engine for "Refinery CMS":http://refinerycms.com/ . It offers the ability to view, query and manage events. 
+
+Events can be exported as iCalendar and therefore be subscribed by iCal or a similar application.
+
+h2. Features
+
+The events engine has the following key features:
+
+* multiple categories support
+* iCalendar export of events
+* multiple start and end times per event (for recurrent events)
+* different locations for recurrent events (optional)
+* geocoding of locations to show Google Maps links and/or embedded maps (optional)
+
+h2. Requirements
+
+Refinery CMS version 1.0.0 or above.
+
+h2. Installation
+
+To install, add refinerycms_events to your @Gemfile@ and run `bundle install`:
+
+<pre>
+gem 'refinerycms_events'
+</pre>
+
+After Events is installed, you will need to generate the migration files and migrate your database:
+
+<pre>
+rails g refinerycms_events
+rake db:migrate
+</pre>
+
+h2. How to contribute
+
+If you find what looks like a bug:
+
+# Check the "GitHub issue tracker":http://github.com/beyama/refinerycms_events/issues/ to see if anyone else has reported issue.
+# If you don't see anything, create an issue with information on how to reproduce it.
+
+If you want to contribute an enhancement or a fix:
+
+# Fork the project on github.
+# Make your changes with tests.
+# Commit the changes without making changes to any files that aren't related to your enhancement or fix.
+# Send a pull request.
+
+h2. License
+
+Designed and created by Alexander Jentz, Germany. Represented by "zack boom GmbH":http://www.zackboom.ch/, Switzerland.
+
+MIT License. See the included MIT-LICENSE file.
