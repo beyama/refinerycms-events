@@ -6,7 +6,7 @@ class CreateEventStructure < ActiveRecord::Migration
       t.datetime    :end_at, :null => false
       t.references  :location
       t.references  :description
-      t.integer     :cost
+      t.float       :cost
       t.references  :created_by
       t.references  :updated_by
 
@@ -20,7 +20,7 @@ class CreateEventStructure < ActiveRecord::Migration
       t.text        :summary
       t.text        :description
       t.references  :location
-      t.integer     :cost
+      t.float       :cost
       t.references  :created_by
       t.references  :updated_by
       

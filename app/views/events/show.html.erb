@@ -58,6 +58,14 @@
           <span class="value"><%= loc.phone %></span>
         </li>
       <% end %>
+
+      <% price = @event.cost.present? ? @event.cost : (@event.description.cost.present? ? @event.description.cost : nil) %>
+      <% if price %>
+        <li class="event_cost right">
+          <span class="property cost"><%= EventDescription.human_attribute_name(:cost) %></span>
+          <span class="value"><%= number_to_currency(price) %></span>
+        </li>
+      <% end %>
     </ul>
   </section>
   
