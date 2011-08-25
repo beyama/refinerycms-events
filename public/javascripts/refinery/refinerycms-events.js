@@ -35,47 +35,32 @@ $(function() {
   }
   
   if($('#categories_form').size()) {
-    var list = $('#categories_list')
-        input = $('#new_category'),
-        empty = list.find('li.empty'),
+    var list        = $('#categories_list')
+        empty       = list.find('li.empty'),
         addCategory = $('#add_category'),
-        template = eval( addCategory.attr('template') );
+        template    = eval( addCategory.attr('template') );
         
     $('li a', list).live('click', function() {
-      $(this).parent().remove();
-      if(list.find('li').size() == 1)
+      var parent  = $(this).parent(),
+          destroy = parent.find("input[name='categories[][_destroy]']");
+
+      if(destroy.length) {
+        destroy.val(true);
+        parent.addClass('destroy').hide();
+      } else {
+        $(this).parent().remove();
+      }
+
+      if(list.find('li[class!=destroy]').size() == 1)
         empty.show();
       return false;
     });
     
     addCategory.click(function() {
       var $this = $(this),
-          lis = $('li', list),
-          val = input.val().trim();
+          lis   = $('li', list),
+          html  = template.replace(/new_event_category/g, new Date().getTime());
       
-      if(val.length == 0)
-        return false;
-        
-      input.val('');
-      
-      var html = template.replace(/new_event_category/g, val),
-          val  = val.toLowerCase();
-      
-      for(var i=0; i < lis.size(); i++) {
-        var li = $(lis[i]),
-            li_val = li.find('input').val();
-        console.log(li_val)
-        
-        if(li_val) {
-          li_val = li_val.toLowerCase();
-          if(li_val > val) {          
-            li.before(html);
-            return false;
-          } else if(li_val == val) {
-            return false;
-          }
-        }
-      }
       list.append(html);
       empty.hide();
       

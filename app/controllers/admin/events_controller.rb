@@ -42,14 +42,35 @@ module Admin
       if request.get?
         @categories = EventCategory.order('name ASC').all
       else
-        @categories = EventCategory.where('name in (?)', params[:categories])
-        params[:categories].each do |name|
-          category = @categories.find{|c| c.name == name }
-          EventCategory.create :name => name unless category
+        @categories = EventCategory.all
+
+        names = []
+        params[:categories].select {|attrs| attrs.has_key?(:id) }.each do |attrs|
+          id = attrs[:id]
+          category = @categories.find{|c| c.id.to_s == id }
+          if category
+            name = attrs[:name]
+            if attrs[:_destroy] == 'true' || name.blank? || names.include?(name)
+              category.destroy
+            else
+              if category.name != name
+                category.name = name
+                category.save
+              end
+              names << name
+            end
+          end
         end
+
+        params[:categories].reject {|attrs| attrs.has_key?(:id) }.each do |attrs|
+          name = attrs[:name]
+          EventCategory.create :name => name unless name.blank? || names.include?(name)
+        end
+        
         redirect_to admin_events_url, :notice => t('admin.events.categories.categories_saved')
       end
     end
+
 
     protected
     def find_event

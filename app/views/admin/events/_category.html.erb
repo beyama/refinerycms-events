@@ -1,5 +1,10 @@
+<% domid = dom_id(category) unless local_assigns.has_key?(:domid) %>
 <li>
-  <%= category.name -%>
-  <%= hidden_field_tag('categories[]', category.name, :id => dom_id(category)) -%>
+  <% if category.persisted? %>
+    <%= hidden_field_tag('categories[][id]', category.id, :id => "#{domid}_id") %>
+    <%= hidden_field_tag('categories[][_destroy]', false, :id => nil) %>
+  <% end %>
+
+  <%= text_field_tag('categories[][name]', category.name, :id => "#{domid}_name") -%>
   <a class='remove' href='#'><span><%= t('admin.events.categories.remove_category') %></span></a>
 </li>

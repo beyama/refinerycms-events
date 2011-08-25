@@ -6,17 +6,6 @@ require 'geocoder'
 module Refinery
   module Events
     
-    class << self
-      def categories
-        RefinerySetting.find_or_set(:event_categories, [])
-      end
-        
-      def categories=(ary)
-        RefinerySetting.set(:event_categories, ary)
-      end
-        
-    end
-    
     class Engine < Rails::Engine
       
       initializer "static assets" do |app|
