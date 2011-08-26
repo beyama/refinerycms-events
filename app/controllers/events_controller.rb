@@ -43,7 +43,7 @@ protected
 
   def find_all_events
     base = params[:start_at].blank? ? Event.unexpired : Event
-    @events = apply_scopes(base).order("start_at ASC").all
+    @events = apply_scopes(base).order("start_at ASC")
   end
 
   def find_page
