@@ -1,20 +1,22 @@
 require 'ri_cal'
 
 class Event < ActiveRecord::Base
-  belongs_to :location, :class_name => 'EventLocation', :dependent => :destroy
+  belongs_to :location, :class_name => 'EventLocation'
   belongs_to :description, :class_name => 'EventDescription'
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
   
   accepts_nested_attributes_for :location, :allow_destroy => true
   
-  validates :location, :start_at, :end_at, :presence => true
+  validates :start_at, :end_at, :location, :presence => true
   
   validate do |event|
     if event.start_at && event.end_at && event.start_at > event.end_at
       event.errors.add(:base, :start_at_cant_be_after_end_at)
     end
   end
+
+  before_destroy :destroy_orphaned_location
   
   scope :start_at, lambda {|date| 
     date = Date.parse(date) if date.is_a?(String)
@@ -23,7 +25,11 @@ class Event < ActiveRecord::Base
   
   scope :end_at, lambda {|date| 
     date = Date.parse(date) if date.is_a?(String)
-    where("end_at < ?", date + 1.day)
+    if date.is_a?(Date)
+      where("end_at < ?", date + 1.day)
+    else
+      where("end_at <= ?", date)
+    end
   }
   
   scope :search, lambda {|q|
@@ -34,15 +40,13 @@ class Event < ActiveRecord::Base
   scope :category, lambda {|q|
     joins(:description => :categories).where('event_categories.name like ?', q)
   }
+
+  scope :unexpired, lambda { where('events.end_at > ?', Time.now) }
   
   class << self
     
     def search_location(attr, value)
       includes(:location).where("event_locations.#{attr} like :value", :value => value)
-    end
-    
-    def unexpired
-      self.start_at(Time.now)
     end
     
   end
@@ -85,6 +89,13 @@ class Event < ActiveRecord::Base
     cal.add_subcomponent(event)
     
     cal
+  end
+
+  protected
+
+  # Destroy location if it is not owned by event description
+  def destroy_orphaned_location
+    self.location.destroy if self.description && self.description.location != self.location
   end
   
 end

@@ -5,13 +5,7 @@ class EventDescription < ActiveRecord::Base
   
   has_and_belongs_to_many :categories, :class_name => 'EventCategory', :join_table => 'event_categories_event_descriptions'
   
-  has_many :events, :class_name => 'Event', :foreign_key => :description_id, :autosave => true, :dependent => :destroy do
-    
-    def unexpired
-      self.start_at(Time.now)
-    end
-
-  end
+  has_many :events, :class_name => 'Event', :foreign_key => :description_id, :autosave => true, :dependent => :destroy 
   
   validates :name, :presence => true
 
