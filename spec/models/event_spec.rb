@@ -143,7 +143,7 @@ describe Event do
 
   end
 
-  describe "categoriy scope" do
+  describe "category scope" do
     let(:description) { event.description }
     let(:category) { Factory.create(:event_category) }
 
