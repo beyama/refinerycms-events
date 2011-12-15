@@ -1,0 +1,66 @@
+widgets.EventView = ElementsEditor.ElementBaseView.extend({
+  elementTitle: 'Event',
+
+  className: 'element eventView clearfix',
+
+  initialize: function() {
+    ElementsEditor.ElementBaseView.prototype.initialize.apply(this, arguments);
+
+    this.event = this.model.get('event');
+
+    if(!this.event) {
+      this.event = new Elements.EssenceAny(); 
+      this.model.set({ event: this.event });
+    }
+  },
+
+  render: function() {
+    ElementsEditor.ElementBaseView.prototype.render.apply(this, arguments);
+
+    var body = this.$('.element-body:first'),
+        eventId = this.cid + '-event',
+        limitId = this.cid + '-limit';
+
+    this.typeField = this.make('input', {
+      name: this.inputName() + '[event_type]',
+      value: 'EventDescription',
+      type: 'hidden'
+    });
+
+    console.log('event: ', this.model.get('event'))
+
+    this.eventLabel = this.make('label', { for: eventId }, 'Event: ');
+
+    this.eventField = this.make('input', {
+      id: eventId,
+      name: this.inputName() + '[event_id]',
+      value: this.event.get('value_id'),
+      type: 'text'
+    });
+
+    this.limitLabel = this.make('label', { for: limitId }, 'Limit: ');
+
+    this.limitField = this.make('input', {
+      id: limitId,
+      name: this.inputName() + '[limit]',
+      value: this.model.get('limit'),
+      type: 'text',
+      size: 4
+    });
+
+    body
+      .append(this.typeField)
+      .append(this.eventLabel)
+      .append(this.eventField)
+      .append(this.limitLabel)
+      .append(this.limitField);
+
+    return this;
+  }
+
+});
+
+ElementsEditor.defaultWidgets['Event'] = 'EventView';
+
+/* vim: set filetype=javascript: */
+
