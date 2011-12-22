@@ -84,6 +84,8 @@ a.ics_feed {
 }
 a.ics_feed span { display: none; }
 
+.vcalendar { clear: both; }
+
 a.map {
   color: #fff;
   background-color: #000;
@@ -92,3 +94,18 @@ a.map {
   width: 100%; 
   height: 400px;
 }
+
+#event_filter ul {
+  float: left;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#event_filter ul li {
+  float: left;
+  padding: 4px 6px 4px 0;
+}
+
+#event_filter ul li.category select { margin: 0; }

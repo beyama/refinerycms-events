@@ -2,6 +2,7 @@
 
 <% content_for :body_content_left do %>
   <%= render 'filter' %>
+
   <p class="vcalendar">
     <% title = t('events.ics_feed') %>
     <%= link_to events_url(current_scopes.update(:format => :ics)), :class => 'ics_feed', :title => title do %>

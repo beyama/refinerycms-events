@@ -1,19 +1,36 @@
 <%= form_tag events_path, :method => :get, :id => 'event_filter' do %>
-  <%= label_tag :category, t('.category') %>
-  <%= select_tag :category, options_for_event_category_select,
-    :include_blank => true %>
+  <ul>
+    <% if EventCategory.count > 0 %>
+      <li class='category'>
+        <%= label_tag :category, t('.category') %>
+        <%= select_tag :category, options_for_event_category_select,
+          :include_blank => true %>
+      </li>
+    <% end %>
 
-  <%= label_tag :search, t('.search') %>
-  <%= search_field_tag :search, params[:search], :size => 14  %>
+    <li class='search'>
+      <%= label_tag :search, t('.search') %>
+      <%= search_field_tag :search, params[:search], :size => 14  %>
+    </li>
+      
+    <li class='start_at'>
+      <%= label_tag :start_at, t('.start_at')  %>
+      <%= search_field_tag :start_at, params[:start_at], :size => 10, :locale => locale %>
+    </li>
+      
+    <li class='end_at'>
+      <%= label_tag :end_at, t('.end_at') %>
+      <%= search_field_tag :end_at, params[:end_at], :size => 10 %>
+    </li>
+      
+    <li class='city'>
+      <%= label_tag :city, t('.city') %>
+      <%= search_field_tag :city, params[:city], :size => 14  %>
+    </li>
     
-  <%= label_tag :start_at, t('.start_at')  %>
-  <%= search_field_tag :start_at, params[:start_at], :size => 12, :locale => locale %>
-    
-  <%= label_tag :end_at, t('.end_at') %>
-  <%= search_field_tag :end_at, params[:end_at], :size => 12 %>
-    
-  <%= label_tag :city, t('.city') %>
-  <%= search_field_tag :city, params[:city], :size => 14  %>
-  
-  <%= submit_tag t('.submit'), :name => nil %>
+    <li class='submit'>
+      <%= submit_tag t('.submit'), :name => nil %>
+    </li>
+
+  </ul>
 <% end %>
