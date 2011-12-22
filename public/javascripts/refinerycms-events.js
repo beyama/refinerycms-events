@@ -1,5 +1,5 @@
 $(function() {
-  if($('#event_filter').length) {
+  if($('#event_filter').size()) {
     $.datepicker.setDefaults( $.datepicker.regional[ '' ] );
     var dates = $('#start_at, #end_at').datepicker(
       $.extend({
@@ -19,7 +19,7 @@ $(function() {
   }
   
   var mapsCanvas = $('#event_map_canvas');
-  if(mapsCanvas.length) {
+  if(mapsCanvas.size()) {
     var latlng = new google.maps.LatLng(mapsCanvas.attr('lat'), mapsCanvas.attr('lng'));
     var options = {
       zoom: 16,
