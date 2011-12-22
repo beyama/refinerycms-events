@@ -16,7 +16,7 @@
     <ul class="properties">
       <li class="event_start_at left">
         <span class="property start_at"> <%= Event.human_attribute_name(:start_at) %></span>
-        <span class="value"><%= l(@event.start_at, :format => :long)%></span>
+        <span class="value"><%= l(@event.start_at, :format => :events_long)%></span>
       </li>
       
       <li class="event_venue right">
@@ -26,7 +26,7 @@
       
       <li class="event_end_at left">
         <span class="property end_at"> <%= Event.human_attribute_name(:end_at) %></span>
-        <span class="value"><%= l(@event.end_at, :format => :long)%></span>
+        <span class="value"><%= l(@event.end_at, :format => :events_long)%></span>
       </li>
       
       <li class="event_address right">

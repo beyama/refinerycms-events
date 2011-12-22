@@ -1,0 +1,7 @@
+"en-GB":
+  date:
+    formats:
+      events_short: "%d %B"
+  time:
+    formats:
+      events_long: "%d %B, %Y %H:%M"

@@ -7,7 +7,7 @@
   <% [:start_at, :end_at].each do |attr| %>
     <li class="event_<%= attr %>">
       <span class="property <%= attr %>"> <%= Event.human_attribute_name(attr) %></span>
-      <span class="value"><%= l(event[attr], :format => :long)%></span>
+      <span class="value"><%= l(event[attr], :format => :events_long)%></span>
     </li>
   <% end %>
   

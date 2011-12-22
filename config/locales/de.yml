@@ -77,3 +77,9 @@ de:
         show_map_link: Kartenlink anzeigen
         show_map: Karte anzeigen
         phone: Telefon
+  date:
+    formats:
+      events_short: "%e. %B"
+  time:
+    formats:
+      events_long: "%A, %d.%m.%Y, %H:%M Uhr"

@@ -1,0 +1,7 @@
+"en-US":
+  date:
+    formats:
+      events_short: "%B %d"
+  time:
+    formats:
+      events_long: "%B %d, %Y %H:%M"

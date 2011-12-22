@@ -4,7 +4,7 @@
     <% @other_dates.each do |event| %>
       <li>
         <% loc = event.location %>
-        <%= link_to l(event.start_at, :format => :long), event_path(event) %>
+        <%= link_to l(event.start_at, :format => :events_long), event_path(event) %>
         <% if loc != @event.location %>
           <%= loc.venue %>
           <% if loc.city.present? %>

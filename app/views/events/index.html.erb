@@ -16,7 +16,7 @@
       
       <% if last_date.nil? || last_date != date %>
         <% last_date = date %>
-        <h2 class="event_date"><%= l(date, :format => :short) %></h2>
+        <h2 class="event_date"><%= l(date, :format => :events_short) %></h2>
       <% end %>
       
       <% desc = event.description %>
