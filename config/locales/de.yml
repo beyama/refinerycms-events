@@ -36,6 +36,8 @@ de:
     map_link: Google Maps
     ics_link: vCalendar
     ics_feed: vCalendar Feed
+    index:
+      no_events_found: Keine Veranstaltungen gefunden.
     filter:
       category: Kategorie
       start_at: Von

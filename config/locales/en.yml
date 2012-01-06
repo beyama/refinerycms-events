@@ -36,6 +36,8 @@ en:
     map_link: Google Maps
     ics_link: vCalendar
     ics_feed: vCalendar Feed
+    index:
+      no_events_found: No events found.
     filter:
       category: Category
       start_at: Start
@@ -54,3 +56,9 @@ en:
           attributes:
             base:
               start_at_cant_be_after_end_at: The start time can´t be after the end time.
+  date:
+    formats:
+      events_short: "%B %d"
+  time:
+    formats:
+      events_long: "%B %d, %Y %H:%M"

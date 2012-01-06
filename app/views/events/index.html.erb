@@ -29,6 +29,11 @@
         </dd>
       </dl>
     <% end %>
+    <% if @events.empty? %>
+      <p>
+        <%= t('.no_events_found') %>
+      </p>
+    <% end %>
     <%= will_paginate @events %>
   </div>
   
