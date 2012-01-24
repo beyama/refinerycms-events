@@ -7,6 +7,8 @@ module NavigationHelpers
           admin_events_path
         when /the new event form/
           new_admin_event_path
+        when /the events dialog/
+          dialog_admin_events_path
         when /the frontend list of events/
           events_path
         else

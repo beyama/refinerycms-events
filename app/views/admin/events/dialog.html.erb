@@ -1,0 +1,40 @@
+<% 
+  content_for :stylesheets, stylesheet_link_tag('refinery/refinerycms-events')
+  content_for :javascripts, javascript_include_tag('refinery/refinerycms-events') 
+%>
+<div class='eventDialog'>
+  <style>
+    #records { width: 99.9%; }
+    #records li.selected { background-color: #22A7F2; }
+  </style>
+
+  <%= form_tag dialog_admin_events_url, :class => 'search_form', :method => :get do %>
+    <%= text_field_tag 'search', params[:search] %>
+    <%= submit_tag t('button_text', :scope => 'shared.admin.search'), :class => 'button', :name => nil %>
+  <% end %>
+
+  <div id="records" class="pagination_container">
+    <%= render 'dialog_events' %>
+  </div>
+
+  <%= render :partial => "/shared/admin/form_actions",
+             :locals => {
+               :f => nil,
+               :cancel_url => '',
+               :hide_cancel => false,
+               :hide_delete => true,
+               :hide_submit => false,
+               :submit_button_text => t('.submit_button_text'),
+               :cancel_button_text => t('close', :scope => 'shared.admin.form_actions'),
+               :cancel_title => nil
+             } %>
+
+  <% content_for :javascripts do %>
+    <script>
+      $(function() {
+        EventPicker.init(<%= "self.parent.#{@callback}" if @callback.present? %>);
+      });
+    </script>
+  <% end %>
+
+</div>

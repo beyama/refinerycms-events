@@ -68,3 +68,58 @@ $(function() {
     });
   } 
 });
+
+EventPicker = {
+  initialised: false,
+
+  callback: null,
+
+  init: function(callback) {
+
+    if (!this.initialised) {
+      this.callback = callback;
+      this.initClose();
+      this.initSelect();
+      this.initInsert();
+      this.initialised = true;
+    }
+  },
+
+  initClose: function() {
+    $('.form-actions #cancel_button').click(close_dialog);
+  },
+
+  initSelect: function() {
+    var self = this;
+    $('#records .record').live('click', function() {
+      $('#records .selected').removeClass('selected');
+      $(this).addClass('selected');
+      return false;
+    });
+  },
+
+  initInsert: function() {
+    var self = this;
+    $('.form-actions #submit_button').click(function(e) {
+      e.preventDefault();
+      var data = self.getSelectedData();
+
+      if(data && typeof(self.callback) === 'function')
+        self.callback(data);
+      
+      close_dialog();
+      return false;
+    });
+  },
+
+  getSelectedData: function() {
+    var element = $('#records .selected');
+
+    if(!element.size()) return null;
+
+    return { 
+      id: element.attr('id').replace('event_description_', ''), 
+      name: element.find('.name').text()
+    }
+  }
+};

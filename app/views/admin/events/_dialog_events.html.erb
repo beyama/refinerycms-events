@@ -1,0 +1,24 @@
+<% if searching? %>
+  <h2><%= t('results_for', :scope => 'shared.admin.search', :query => params[:search]) %></h2>
+<% end %>
+
+<% if @events.any? %>
+  <%= will_paginate @events, :selected => @selected %>
+  <ul>
+    <% @events.each do |event| %>
+      <li id='<%= dom_id(event) %>' class='clearfix record <%= cycle("on", "on-hover") %> <%= 'selected' if @selected == event.id %>'>
+        <span class='name'><%= event.name %></span>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    <% unless searching? %>
+      <strong>
+        <%= t('.no_items_yet') %>
+      </strong>
+    <% else %>
+      <%= t('no_results', :scope => 'shared.admin.search') %>
+    <% end %>
+  </p>
+<% end %>

@@ -10,6 +10,21 @@ module Admin
       render :partial => 'events' if request.xhr?
     end
 
+    def dialog
+      @events = EventDescription
+      @events = EventDescription.where("name like ?", "%#{params[:search]}%") if params[:search].present?
+      @events = @events.paginate(:page => params[:page], :per_page => 8)
+
+      @callback = params[:callback]
+      @selected = params[:selected].present? ? params[:selected].to_i : nil
+
+      if request.xhr?
+        render :partial => 'dialog_events'
+      else
+        render :layout => 'admin_dialog'
+      end
+    end if defined?(Elements)
+
     def new
       @event = EventDescription.new
       @event.events.build
@@ -99,6 +114,16 @@ module Admin
         end
       end
     end
+
+    protected
+
+    def restrict_controller
+      super unless action_name == 'dialog'
+    end
+
+    def store_current_location!
+      super unless action_name == 'dialog'
+    end 
 
   end
 end

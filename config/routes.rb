@@ -4,6 +4,7 @@ Refinery::Application.routes.draw do
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
     resources :events, :except => :show do
       collection do
+        get :dialog if defined?(Elements)
         get :categories
         post :categories
       end

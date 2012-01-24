@@ -3,6 +3,12 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
 
   className: 'element eventView clearfix',
 
+  events: helper.inheritEvents(ElementsEditor.ElementBaseView, {
+    "click .select":     "selectEvent",
+    "click .eventLabel": "selectEvent",
+    "click .eventName":  "selectEvent"
+  }),
+
   initialize: function() {
     ElementsEditor.ElementBaseView.prototype.initialize.apply(this, arguments);
 
@@ -12,6 +18,17 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
       this.event = new Elements.EssenceAny(); 
       this.model.set({ event: this.event });
     }
+
+    this.eventData = this.event.get('value_data') || {};
+
+    this.event.bind('change:value_id', function(_, id) { $(this.idField).val(id); }, this);
+    this.event.bind('change:name', function(_, name) { $(this.eventName).text(name); }, this);
+  
+    var self = this;
+    this.callbackName = 'callback_' + this.cid;
+    window[this.callbackName] = function(event) {
+      self.event.set({ value_id: event.id, name: event.name });
+    }
   },
 
   render: function() {
@@ -19,6 +36,7 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
 
     var body = this.$('.element-body:first'),
         eventId = this.cid + '-event',
+        nameId  = this.cid + '-name',
         limitId = this.cid + '-limit';
 
     this.typeField = this.make('input', {
@@ -27,17 +45,24 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
       type: 'hidden'
     });
 
-    console.log('event: ', this.model.get('event'))
+    this.eventLabel = this.make('label', { 
+      for: eventId, 
+        'class': 'eventLabel' 
+    }, 'Event: ');
 
-    this.eventLabel = this.make('label', { for: eventId }, 'Event: ');
-
-    this.eventField = this.make('input', {
+    this.idField = this.make('input', {
       id: eventId,
       name: this.inputName() + '[event_id]',
       value: this.event.get('value_id'),
-      type: 'text'
+      type: 'hidden'
     });
 
+    this.eventName = this.make('span', { 
+      id: nameId, 
+      'class': 'eventName' 
+    }, 'No event selected');
+
+    // TODO: Use EssenceInteger for this
     this.limitLabel = this.make('label', { for: limitId }, 'Limit: ');
 
     this.limitField = this.make('input', {
@@ -48,14 +73,62 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
       size: 4
     });
 
+    var icon = this.make('img', { 
+      height: 16,
+      width: 16,
+      src: '/images/refinery/icons/zoom.png',
+      alt: 'Select event'
+    });
+    this.selectButton = this.make('a', { 'class': 'select' }, icon);
+
     body
+      .append(this.idField)
       .append(this.typeField)
       .append(this.eventLabel)
-      .append(this.eventField)
+      .append(this.eventName)
       .append(this.limitLabel)
-      .append(this.limitField);
+      .append(this.limitField)
+      .append(this.selectButton);
+
+    // Styles
+    $([this.eventLabel, this.eventName, this.limitLabel]).css({ 
+      display: 'inline-block',
+      'margin-right': '10px' 
+    });
+    $(this.eventName).css('min-width', '250px');
+    $(this.selectButton).css('margin-left', '8px');
+
+    // copy event name to event model
+    if(this.eventData.name) this.event.set({ name: this.eventData.name });
 
     return this;
+  },
+
+  selectEvent: function(e) {
+    this.closeSelectDialog();
+    this.openSelectDialog();
+    e.preventDefault();
+  },
+
+  openSelectDialog: function() {
+    var src = '<%= dialog_admin_events_path %>',
+        iframe = $("<iframe id='dialog_iframe' frameborder='0' marginheight='0' marginwidth='0' border='0'></iframe>");
+
+    iframe.dialog({
+      title: "Select event",
+      modal: true,
+      resizable: false,
+      width: 800,
+      height: 500
+    });
+
+    iframe.attr('src', src + '?callback=' + this.callbackName + '&selected=' + this.event.get('value_id'));
+
+    if(!$.browser.msie) { iframe.dialog('widget').corner('8px'); }
+  },
+
+  closeSelectDialog: function() {
+    this.$('#dialog_iframe').dialog('close').remove();
   }
 
 });
@@ -63,4 +136,3 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
 ElementsEditor.defaultWidgets['Event'] = 'EventView';
 
 /* vim: set filetype=javascript: */
-

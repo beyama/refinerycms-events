@@ -32,6 +32,10 @@ de:
       modified:
         created: Erstelt von %{by} am %{at}
         updated: Geändet von %{by} am %{at}
+      dialog:
+        submit_button_text: Einfügen
+      dialog_events:
+        no_items_yet: Es sind noch keine Events angelegt.
   events:
     map_link: Google Maps
     ics_link: vCalendar
