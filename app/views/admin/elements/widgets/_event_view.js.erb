@@ -34,8 +34,7 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
   render: function() {
     ElementsEditor.ElementBaseView.prototype.render.apply(this, arguments);
 
-    var body = this.$('.element-body:first'),
-        eventId = this.cid + '-event',
+    var eventId = this.cid + '-event',
         nameId  = this.cid + '-name',
         limitId = this.cid + '-limit';
 
@@ -62,16 +61,7 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
       'class': 'eventName' 
     }, 'No event selected');
 
-    // TODO: Use EssenceInteger for this
-    this.limitLabel = this.make('label', { for: limitId }, 'Limit: ');
-
-    this.limitField = this.make('input', {
-      id: limitId,
-      name: this.inputName() + '[limit]',
-      value: this.model.get('limit'),
-      type: 'text',
-      size: 4
-    });
+    this.limit = this.getWidgetForProperty('limit', { tagName: 'span', togglable: false, });
 
     var icon = this.make('img', { 
       height: 16,
@@ -81,17 +71,19 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
     });
     this.selectButton = this.make('a', { 'class': 'select' }, icon);
 
-    body
+    this.body()
       .append(this.idField)
       .append(this.typeField)
       .append(this.eventLabel)
       .append(this.eventName)
-      .append(this.limitLabel)
-      .append(this.limitField)
+      .append(this.limit.render().el)
       .append(this.selectButton);
 
     // Styles
-    $([this.eventLabel, this.eventName, this.limitLabel]).css({ 
+    $(this.limit.el).css('width', 'auto');
+    var limitLabel = $(this.limit.el).find('label').get(0);
+
+    $([this.eventLabel, this.eventName, limitLabel]).css({ 
       display: 'inline-block',
       'margin-right': '10px' 
     });

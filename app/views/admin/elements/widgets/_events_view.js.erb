@@ -10,21 +10,47 @@ widgets.EventsView = ElementsEditor.ElementBaseView.extend({
   render: function() {
     ElementsEditor.ElementBaseView.prototype.render.apply(this, arguments);
 
-    // this.richTextView = this.getWidgetForProperty('text', {
-    //   togglable: false,
-    //   headerless: true
-    // });
+    // autorender properties
+    this.dynamicView = new ElementsEditor.DynamicView({ 
+      parent: this,
+      descriptor: this.descriptor, 
+      model: this.model, 
+      except: 'category' 
+    });
 
-    // this.bind('view:DOMNodeInserted', this.fixEditorSize, this);
+    this.body().append(this.dynamicView.render().el);
 
-    // this.$('.element-body:first').append(this.richTextView.render().el);
+    // Category
+    this.category = this.make('li', { 'class': 'property field clearfix' }); 
+
+    var categoryId = 'category-' + this.cid;
+
+    this.categoryLabel = this.make('label', { for: categoryId }, 'Category');
+
+    this.categorySelector = this.make('select', { 
+      id: categoryId, 
+      name: this.inputName() + '[category]' 
+    }, this.make('option'));
+
+    var categories = <%= EventCategory.order('name ASC').to_json.html_safe %>;
+
+    for(var i = 0; i < categories.length; i++) {
+      var category = categories[i],
+          option   = this.make('option', { value: category.id }, category.name);
+      $(this.categorySelector).append(option);
+    }
+
+    $(this.category).append(this.categoryLabel).append(this.categorySelector);
+    $(this.categorySelector).sb();
+
+    $(this.dynamicView.elements.named['title'].el).after(this.category);
 
     return this;
   }
 
 });
 
-ElementsEditor.defaultWidgets['RichText'] = 'RichTextView';
+ElementsEditor.defaultWidgets['Events'] = 'EventsView';
 
 /* vim: set filetype=javascript: */
 

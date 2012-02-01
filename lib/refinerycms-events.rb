@@ -11,15 +11,15 @@ module Refinery
         e.parent :embedded_element
         e.title 'Events element'
         e.text :title, :maximum => 250, :required => true
-        e.text :category, :maximum => 250
-        e.integer :limit, :minimum => 0, :maximum => 100
+        e.integer :category
+        e.integer :limit, :minimum => 1, :maximum => 100
       end  
 
       ::Elements::ElementBuilder.create_or_update :event do |e|
         e.parent :embedded_element
         e.title 'Event element'
         e.any :event
-        e.integer :limit, :minimum => 0, :maximum => 100
+        e.integer :limit, :minimum => 1, :maximum => 100
       end  
     end
 
