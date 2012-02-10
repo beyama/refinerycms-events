@@ -39,7 +39,7 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
         limitId = this.cid + '-limit';
 
     this.typeField = this.make('input', {
-      name: this.inputName() + '[event_type]',
+      name: this.getInputName() + '[event_type]',
       value: 'EventDescription',
       type: 'hidden'
     });
@@ -51,7 +51,7 @@ widgets.EventView = ElementsEditor.ElementBaseView.extend({
 
     this.idField = this.make('input', {
       id: eventId,
-      name: this.inputName() + '[event_id]',
+      name: this.getInputName() + '[event_id]',
       value: this.event.get('value_id'),
       type: 'hidden'
     });

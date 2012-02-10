@@ -29,7 +29,7 @@ widgets.EventsView = ElementsEditor.ElementBaseView.extend({
 
     this.categorySelector = this.make('select', { 
       id: categoryId, 
-      name: this.inputName() + '[category]' 
+      name: this.getInputName() + '[category]' 
     }, this.make('option'));
 
     var categories = <%= EventCategory.order('name ASC').to_json.html_safe %>;
