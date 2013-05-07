@@ -3,7 +3,7 @@ module Elements
 
     def display(options)
       @element = options[:element]
-      @events = Event.order('start_at ASC')
+      @events = ::Event.order('start_at ASC')
 
       apply_scopes
 
@@ -12,6 +12,9 @@ module Elements
       end
 
       @events = @events.all
+
+      return "" if @events.empty?
+
       render
     end
 
